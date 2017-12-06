@@ -1,0 +1,50 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.9.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.sfirsov'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.2.1.RELEASE'
+	runtime('org.springframework.boot:spring-boot-devtools')
+	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+	compileOnly('org.projectlombok:lombok')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.springframework.security:spring-security-test')
+}
+
+task copyFrontend(type: Copy, dependsOn: [':klm-test-frontend:build']) {
+    from "../klm-test-frontend/dist/"
+    into "src/main/resources/static"
+}
+
+task copyToLib(type: Copy, dependsOn: ['build']) {
+    from "build/libs/"
+    into "../build/libs"
+}
+
+task stage(dependsOn: ['build', 'clean', 'copyToLib'])
+
+build.dependsOn copyFrontend
+build.mustRunAfter copyFrontend
+build.mustRunAfter clean

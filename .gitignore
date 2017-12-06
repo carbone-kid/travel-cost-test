@@ -1,0 +1,15 @@
+build
+log
+.gradle
+.idea
+klm-test-backend/build
+klm-test-backend/log
+klm-test-backend/out
+klm-test-backend/.idea
+klm-test-backend/.gradle
+klm-test-backend/src/main/resources/META-INF/resources/*
+klm-test-frontend/node_modules
+klm-test-frontend/.gradle
+klm-test-frontend/.idea
+*.iml
+*.log

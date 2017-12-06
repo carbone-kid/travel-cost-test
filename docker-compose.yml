@@ -1,0 +1,23 @@
+version: "3.1"
+
+services:
+  webapp:
+    build:
+       context: ./klm-test-backend
+       dockerfile: ./docker/webapp/Dockerfile
+    image: sfirsov/klm-test-webapp
+    ports:
+      - "9000:9000"
+      - "5005:5005"
+    links:
+      - "mock"
+    env_file:
+      - webapp_vars.env
+      
+  mock:
+    build:
+       context: ./simple-travel-api-mock
+       dockerfile: ./Dockerfile
+    image: sfirsov/simple-travel-api-mock
+    ports:
+      - "8080:8080"

@@ -1,0 +1,3 @@
+rootProject.name = 'devcase'
+include 'klm-test-frontend'
+include 'klm-test-backend'

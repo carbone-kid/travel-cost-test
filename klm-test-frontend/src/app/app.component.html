@@ -1,0 +1,34 @@
+<div fxLayout="column" fxLayoutGap="50px">
+
+  <p class="text-center">This is a programming assignment. It consists of two parts - Spring Boot backend, and Angular 4 frontend.</p>
+  <p class="text-center">Please choose origin and destination and push the button.</p>
+
+  <div fxLayout="row" fxFlex="100%" fxLayoutAlign="space-between">
+
+    <form fxFlex="80%" fxLayoutAlign="space-between">
+      <mat-form-field fxFlex="48%">
+        <input [(ngModel)]="origin" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of options" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="48%">
+        <input [(ngModel)]="destination" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of options" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+
+    <button fxFlex="17%" mat-button class="get-fare-button" (click)="onSearchFares()">Get Fare</button>
+  </div>
+
+  <div *ngIf="fareResponse != null" >
+    <app-fare [fareResponse]="fareResponse"></app-fare>
+  </div>
+</div>
